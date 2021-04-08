@@ -19,10 +19,10 @@ inputs:
     description: "Registry to pull policies from. E.g. myregistry.azurecr.io/myopapolicies:sha"
   type:
     description: 'Supported: helm. Will run additional tool, like helm plugin. By default there will be no processing of the input.'
-
+    
 runs:
   using: 'docker'
-  image: 'docker://ilirbekteshi/conftest-action-docker'
+  image: 'Dockerfile'
   args:
     - ${{ inputs.path }}
     - ${{ inputs.policy }}
@@ -30,7 +30,7 @@ runs:
     - ${{ inputs.output }}
     - ${{ inputs.pull_image }}
     - ${{ inputs.type }}
-
+    
 branding:
   color: orange
   icon: lock
