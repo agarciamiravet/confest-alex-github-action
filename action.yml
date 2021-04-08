@@ -1,0 +1,36 @@
+name: 'Conftest OPA test runner'
+description: 'Validate Kubernetes, Helm, Terraform, etc. configurations against OPA (rego) policies'
+author: 'ibiqlik'
+
+inputs:
+  path:
+    description: "Path to resources/chart that will be tested"
+    required: true
+  policy:
+    description: "Path to policy folder. Defaults to policy"
+    default: "policy"
+  namespace:
+    description: "Rego namespace used for testing"
+    default: "main"
+  output:
+    description: "Output format"
+    default: "stdout"
+  pull_image:
+    description: "Registry to pull policies from. E.g. myregistry.azurecr.io/myopapolicies:sha"
+  type:
+    description: 'Supported: helm. Will run additional tool, like helm plugin. By default there will be no processing of the input.'
+
+runs:
+  using: 'docker'
+  image: 'docker://ilirbekteshi/conftest-action-docker'
+  args:
+    - ${{ inputs.path }}
+    - ${{ inputs.policy }}
+    - ${{ inputs.namespace }}
+    - ${{ inputs.output }}
+    - ${{ inputs.pull_image }}
+    - ${{ inputs.type }}
+
+branding:
+  color: orange
+  icon: lock
